@@ -1,0 +1,53 @@
+dataset:
+  data_dir: "data"
+  use_synthetic: true   # Set to false and point data_dir to OhioT1DM when available
+
+preprocessing:
+  window_size: 12          # 12 x 5-min steps = 1 hour history
+  prediction_horizon: 6    # 6 x 5-min steps = 30-min prediction horizon
+  stride: 1
+  train_split: 0.70
+  val_split: 0.15
+  # test = 1 - train - val = 0.15
+
+gossip_learning:
+  rounds: 50               # Gossip communication rounds
+  local_epochs: 3          # Local SGD epochs per round
+  learning_rate: 0.001
+  batch_size: 64
+  topology: "ring"         # ring | fully_connected | random | small_world
+  aggregation_alpha: 0.8   # Self-weight in gossip aggregation
+  hidden_units: 32
+  sparsity_ratio: 0.1      # L1 pruning ratio
+
+energy:
+  initial_battery_mJ: 100.0
+  threshold_mJ: 10.0
+  tx_power_mW: 1.5
+  tx_time_ms: 10.0
+  energy_aware: true
+
+centralized_baseline:
+  epochs: 50
+  hidden_units: 64
+  num_layers: 2
+  learning_rate: 0.001
+  batch_size: 64
+
+synthetic_data:
+  n_patients: 6
+  n_days: 14
+  cgm_freq_minutes: 5
+  noise_std: 5.0
+  seed: 42
+
+evaluation:
+  prediction_horizons:    # horizons to evaluate (in steps, 1 step = 5 min)
+    - 6    # 30 min
+    - 12   # 60 min
+
+logging:
+  level: "INFO"
+  save_dir: "results"
+
+seed: 42

@@ -1,0 +1,5 @@
+Model,Energy per Comm. Cycle (mJ),Total Battery Use (%),Transmission Reduction (%),Network Lifetime Extension (%)
+Centralized LSTM Model [5],120,85,0,0
+Federated Learning Model [7],85,65,30,25
+Conventional Gossip Model [8],60,50,50,45
+Proposed Energy-Aware LGLM,35,30,70,80

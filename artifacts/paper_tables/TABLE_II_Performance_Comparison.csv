@@ -1,0 +1,4 @@
+Model,RMSE (mg/dL),MAE (mg/dL),MARD (%)
+Centralized LSTM [5],14.1,19.4,—
+Federated Learning Model [7],15.1,—,—
+Proposed LGLM (Decentralized Gossip),13.6,9.2,8.5

@@ -1,0 +1,69 @@
+import json
+import os
+
+nb = {
+    "cells": [
+        {
+            "cell_type": "markdown",
+            "metadata": {},
+            "source": [
+                "# Evaluation Metrics\n",
+                "This notebook loads and prints the obtained metrics from the `results/` directory."
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "import json\n",
+                "import pandas as pd\n",
+                "\n",
+                "with open('../results/lglm_evaluation.json', 'r') as f:\n",
+                "    lglm = json.load(f)\n",
+                "    \n",
+                "with open('../results/centralized_lstm_evaluation.json', 'r') as f:\n",
+                "    lstm = json.load(f)\n",
+                "\n",
+                "print('=== OVERALL METRICS ===')\n",
+                "print(f\"LGLM MARD: {lglm['overall']['MARD']:.2f}%\")\n",
+                "print(f\"LGLM RMSE: {lglm['overall']['RMSE']:.3f}\")\n",
+                "print(f\"LGLM R2:   {lglm['overall']['R2']:.3f}\")\n",
+                "print()\n",
+                "print('=== CLARKE ERROR GRID (LGLM) ===')\n",
+                "for k, v in lglm['clarke_zones'].items():\n",
+                "    print(f\"{k}: {v:.2f}%\")\n"
+            ]
+        },
+        {
+            "cell_type": "code",
+            "execution_count": None,
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "print('=== PER PATIENT METRICS (LGLM) ===')\n",
+                "df = pd.DataFrame(lglm['per_patient']).T\n",
+                "display(df)\n"
+            ]
+        }
+    ],
+    "metadata": {
+        "kernelspec": {
+            "display_name": "Python 3",
+            "language": "python",
+            "name": "python3"
+        },
+        "language_info": {
+            "name": "python",
+            "version": "3.11.0"
+        }
+    },
+    "nbformat": 4,
+    "nbformat_minor": 4
+}
+
+out = os.path.join("notebooks", "Metrics_Summary.ipynb")
+with open(out, "w", encoding="utf-8") as f:
+    json.dump(nb, f, indent=1)
+print(f"Created {out}")
